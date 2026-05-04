@@ -1,12 +1,23 @@
-"""FastMCP Server placeholder.
+"""Minimal FastMCP Server for Step 1."""
 
-TODO: Step 1 will create the minimal FastMCP Server.
-"""
+from fastmcp import FastMCP
+
+
+mcp = FastMCP("fastmcp-learning-demo")
+
+
+@mcp.tool
+def hello(name: str) -> dict:
+    """Return a greeting message for the provided name."""
+    if not name.strip():
+        return {"success": False, "error": "name is required"}
+
+    return {"success": True, "data": {"message": f"Hello, {name}!"}}
 
 
 def main() -> None:
-    """Placeholder entry point for the future FastMCP Server."""
-    print("FastMCP Server placeholder. TODO: implement in Step 1.")
+    """Run the FastMCP Server with HTTP transport."""
+    mcp.run(transport="http", host="127.0.0.1", port=8000)
 
 
 if __name__ == "__main__":
