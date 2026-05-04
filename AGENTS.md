@@ -9,7 +9,7 @@ Codex 每次执行本项目任务前，必须先阅读以下文档：
 3. `docs/rules/MCP_TOOL_DESIGN.md`
 4. `docs/rules/ERROR_HANDLING.md`
 5. `docs/guides/TESTING.md`
-6. `docs/learning/CORE_CONCEPTS.md`
+6. `docs/learning/README.md`
 7. `docs/logs/DEV_LOG.md`
 
 ## 开发原则
@@ -26,5 +26,8 @@ Codex 每次执行本项目任务前，必须先阅读以下文档：
 - 所有命令优先使用 `uv run`。
 - 修改后必须说明如何验证。
 - 完成后必须更新 `DEV_LOG.md`。
-- 如果产生新的核心知识点，必须更新 `CORE_CONCEPTS.md`。
+- 如果产生新的核心知识点，必须新增或更新对应编号的学习笔记文件。
+- 不要恢复或继续使用 `CORE_CONCEPTS.md` 作为学习笔记入口。
+- 学习笔记文件采用“编号 + 核心内容”的文件名。
+- 一个步骤原则上对应一个学习笔记文件。
 - 每个开发步骤完成后必须进行原理解释。

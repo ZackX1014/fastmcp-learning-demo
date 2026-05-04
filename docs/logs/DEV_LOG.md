@@ -89,6 +89,74 @@ uv run fastmcp call src/server.py hello name='   ' --json
 
 Step 2：创建最小 Client，通过 MCP Client 调用 `hello` Tool，理解 Client 与 Server 的调用闭环。
 
+### Step 1.2：拆分学习文档为按步骤编号的笔记文件
+
+#### 本步骤目标
+
+- 优化 `docs/learning/` 的长期维护结构。
+- 将单一大文件拆分为“索引 + 每步一篇学习笔记”。
+- 避免后续所有核心概念继续堆到 `CORE_CONCEPTS.md`。
+
+#### 为什么要拆分 CORE_CONCEPTS.md
+
+`CORE_CONCEPTS.md` 在 Step 1 后已经变得较长。
+
+如果后续每一步都继续写入同一个文件，文档会越来越难读、难复习、难维护。
+
+学习文档更适合按步骤拆分。每次复习时，可以只打开当前阶段对应的笔记。
+
+#### 新增文件
+
+- `docs/learning/README.md`
+- `docs/learning/001-fastmcp-server-and-hello-tool.md`
+
+#### 修改文件
+
+- `AGENTS.md`
+- `docs/learning/CORE_CONCEPTS.md`
+- `docs/logs/DEV_LOG.md`
+
+#### 原 CORE_CONCEPTS.md 如何处理
+
+删除 `docs/learning/CORE_CONCEPTS.md`。
+
+删除原因是：新的学习笔记入口已经改为 `docs/learning/README.md`，继续保留过渡文件会增加一个不必要的入口。
+
+#### 后续学习笔记如何维护
+
+- 每个步骤一个文件。
+- 文件名格式为 `三位编号-核心内容.md`。
+- 文件名使用英文 kebab-case。
+- 示例：
+  - `001-fastmcp-server-and-hello-tool.md`
+  - `002-mcp-client-calls-tool.md`
+  - `003-quote-price-calculator-tool.md`
+- 如果某一步产生新的核心知识点，应新增或更新对应编号的学习笔记文件。
+- 不要恢复或继续使用 `CORE_CONCEPTS.md` 作为学习笔记入口。
+
+#### 如何验证
+
+```bash
+find docs/learning -maxdepth 1 -type f -print
+sed -n '1,120p' docs/learning/README.md
+sed -n '1,160p' docs/learning/001-fastmcp-server-and-hello-tool.md
+test ! -f docs/learning/CORE_CONCEPTS.md
+rg "docs/learning/README.md|CORE_CONCEPTS" AGENTS.md docs
+```
+
+#### 验证状态
+
+- 已新增学习笔记索引 `docs/learning/README.md`。
+- 已新增 Step 1 学习笔记 `docs/learning/001-fastmcp-server-and-hello-tool.md`。
+- 已删除 `docs/learning/CORE_CONCEPTS.md`。
+- 已更新 `AGENTS.md`，后续必读学习入口改为 `docs/learning/README.md`。
+- 未修改 `src/server.py`。
+- 未修改 `src/client.py`。
+
+#### 下一步建议
+
+Step 2：创建 `002-mcp-client-calls-tool.md`，并实现最小 Client 调用 `hello` Tool。
+
 ### Step 1.1：优化核心学习笔记的可复习性
 
 #### 本步骤目标

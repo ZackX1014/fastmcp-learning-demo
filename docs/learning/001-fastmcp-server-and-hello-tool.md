@@ -1,35 +1,31 @@
-# Core Concepts
+# 001 FastMCP Server And Hello Tool
 
-## 这份笔记怎么用
+## 这一步学什么
 
-这不是正式规范文档。
+这一步学习最小 FastMCP Server。
 
-它是学习 FastMCP / MCP 时用来反复复习的核心概念笔记。
+我们创建了一个 `hello` Tool。
 
-这里不记录每一步做了什么。那些内容放在 `docs/logs/DEV_LOG.md`。
+然后用 HTTP 模式运行 Server。
 
-这里重点记录：
-
-- 一个概念可以理解为什么。
-- 它在本项目里长什么样。
-- 为什么它重要。
-- 怎么确认自己真的懂了。
-- 它容易和什么混淆。
+最后用 `fastmcp inspect` 和 `fastmcp list` 检查 Server 暴露了什么能力。
 
 ## 复习顺序
 
-建议按这个顺序复习：
+建议按这个顺序看：
 
 1. FastMCP Server
 2. MCP Tool
 3. `@mcp.tool`
-4. Tool 参数类型
-5. Tool 结构化返回
-6. HTTP Transport
-7. MCP Client
-8. `fastmcp inspect`
-9. `fastmcp list`
-10. Tools / Resources / Prompts 的区别
+4. Python 装饰器和 `@mcp.tool` 的关系
+5. Tool 参数类型
+6. Tool docstring
+7. Tool 结构化返回
+8. HTTP Transport
+9. MCP Client 的基本概念
+10. `fastmcp inspect`
+11. `fastmcp list`
+12. Tools / Resources / Prompts 的区别
 
 ## FastMCP Server
 
@@ -201,6 +197,58 @@ uv run fastmcp list src/server.py
 mcp.run(...)
 ```
 
+## Python 装饰器和 `@mcp.tool` 的关系
+
+### 一句话理解
+
+Python 装饰器可以理解为“在不改函数调用方式的情况下，给函数额外加一层能力”。
+
+### 通俗解释
+
+`@mcp.tool` 本质上就是一个 Python 装饰器。
+
+它不会让 `hello` 失去普通函数的样子。
+
+但它会额外告诉 FastMCP：这个函数要登记为 MCP Tool。
+
+所以我们看到的代码很简单，背后已经完成了 Tool 注册。
+
+### 在本项目中的例子
+
+```python
+@mcp.tool
+def hello(name: str) -> dict:
+    ...
+```
+
+这段代码既定义了 Python 函数，也完成了 MCP Tool 注册。
+
+### 为什么重要
+
+理解装饰器以后，就不会觉得 `@mcp.tool` 很神秘。
+
+它不是魔法。
+
+它只是把函数信息交给 FastMCP 管理。
+
+### 如何验证
+
+运行：
+
+```bash
+uv run fastmcp list src/server.py
+```
+
+如果能看到 `hello`，说明装饰器已经把函数注册到了 Server。
+
+### 容易混淆的点
+
+装饰器不是注释。
+
+注释只给人看。
+
+装饰器会真的影响程序运行。
+
 ## Tool 参数类型
 
 ### 一句话理解
@@ -266,6 +314,57 @@ hello(name: str) -> dict
 `name: str` 只能说明它应该是字符串。
 
 但“不能为空”这种规则，仍然需要在函数里自己判断。
+
+## Tool docstring
+
+### 一句话理解
+
+Tool docstring 可以理解为“写给人和 Client 看的 Tool 说明”。
+
+### 通俗解释
+
+docstring 是函数下面那段三引号说明。
+
+FastMCP 会读取它。
+
+CLI 也会展示它。
+
+后续 Client 或 AI 使用 Tool 时，也需要知道这个 Tool 是干什么的。
+
+### 在本项目中的例子
+
+```python
+def hello(name: str) -> dict:
+    """Return a greeting message for the provided name."""
+```
+
+这句话说明 `hello` 会根据名字返回问候语。
+
+### 为什么重要
+
+Tool 名字通常很短。
+
+docstring 能补充意图。
+
+它可以减少误用，也方便以后复习。
+
+### 如何验证
+
+运行：
+
+```bash
+uv run fastmcp list src/server.py
+```
+
+输出中应该能看到 `hello` 的说明。
+
+### 容易混淆的点
+
+docstring 不是普通注释。
+
+普通注释通常只在源码里看。
+
+docstring 可以被工具读取，并展示给外部使用者。
 
 ## Tool 结构化返回
 
@@ -412,7 +511,7 @@ HTTP Transport 不等于普通 REST API。
 
 当前阶段不要把它设计成传统 Web Controller。
 
-## MCP Client
+## MCP Client 的基本概念
 
 ### 一句话理解
 
@@ -584,7 +683,7 @@ hello(name: str) -> dict
 
 `list` 看 Tool 清单。
 
-## Tools / Resources / Prompts 的区别
+## 补充概念：Tools / Resources / Prompts 的区别
 
 ### 一句话理解
 
@@ -658,14 +757,3 @@ Tool 和 Resource 最容易混。
 Prompt 不是执行动作。
 
 Prompt 更像给 AI 使用的一段可复用任务模板。
-
-## 后续待补充
-
-后续学习到新概念时，继续按这个结构补充：
-
-1. 一句话理解。
-2. 通俗解释。
-3. 在本项目中的例子。
-4. 为什么重要。
-5. 如何验证。
-6. 容易混淆的点。
