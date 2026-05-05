@@ -24,6 +24,7 @@
 ## 当前学习笔记目录
 
 1. `001-fastmcp-server-and-hello-tool.md`：最小 FastMCP Server、`hello` Tool、HTTP 运行、CLI inspect / list。
+2. `002-mcp-client-calls-hello-tool.md`：MCP Client 通过 HTTP 调用 `hello` Tool，理解 Client / Server 调用闭环。
 
 ## 后续维护原则
 
