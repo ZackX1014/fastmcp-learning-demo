@@ -87,6 +87,40 @@ def get_project_summary() -> dict:
     }
 
 
+@mcp.prompt(
+    name="analyze_quote_request",
+    description="Create a reusable instruction template for quote request analysis.",
+)
+def analyze_quote_request(
+    requirement_text: str,
+    customer_region: str = "JP",
+) -> str:
+    """Render a quote request analysis prompt for learning MCP Prompt."""
+    return f"""You are a quote request analysis assistant.
+
+This is a FastMCP / MCP learning demo.
+It does not connect to the real QuoteAgent system.
+
+Read the user's quote request and identify:
+
+1. Product type
+2. Quantity
+3. Customer region
+4. Urgency
+
+If information is missing, list the questions that must be confirmed.
+Do not invent missing information.
+Do not calculate the price directly.
+Use a clear structure in your response.
+
+Customer region:
+{customer_region}
+
+Quote request text:
+{requirement_text}
+"""
+
+
 def main() -> None:
     """Run the FastMCP Server with HTTP transport."""
     mcp.run(transport="http", host="127.0.0.1", port=8000)

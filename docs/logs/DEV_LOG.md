@@ -233,3 +233,31 @@
   - Server 成功运行在 `http://127.0.0.1:8000/mcp`。
   - Resource Demo 成功读取 `project://summary`。
   - 输出包含 `project_name`、`goal`、`completed_steps`、`current_focus`。
+
+### Step 6：MCP Prompt quote analysis
+
+- 变更：
+  - 新增 `analyze_quote_request` Prompt。
+  - 新增 `client_prompt_demo.py`，用于演示 Client 获取 Prompt。
+  - 新增 Step 6 学习笔记。
+  - 更新测试指南和学习笔记索引。
+
+- 文件：
+  - `src/server.py`
+  - `src/client_prompt_demo.py`
+  - `docs/guides/TESTING.md`
+  - `docs/learning/006-mcp-prompt-quote-analysis.md`
+  - `docs/learning/README.md`
+  - `docs/logs/DEV_LOG.md`
+
+- 验证：
+  - `uv run fastmcp inspect src/server.py`
+  - `uv run python src/server.py`
+  - `uv run python src/client_prompt_demo.py`
+
+- 结果：
+  - 已通过。
+  - `inspect` 显示 Tools 数量为 2、Resources 数量为 1、Prompts 数量为 1。
+  - Server 成功运行在 `http://127.0.0.1:8000/mcp`。
+  - Prompt Demo 成功获取 `analyze_quote_request`。
+  - 输出包含示例 `requirement_text` 和 `customer_region` JP。

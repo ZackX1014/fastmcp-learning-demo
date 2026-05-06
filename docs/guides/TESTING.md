@@ -125,3 +125,41 @@ uv run python src/client_resource_demo.py
 
 - 能成功读取 `project://summary`。
 - 输出中能看到 `project_name`、`goal`、`completed_steps`、`current_focus` 等信息。
+
+## Step 6：验证 MCP Prompt
+
+### 启动 Server
+
+```bash
+uv run python src/server.py
+```
+
+期望：
+
+- Server 正常启动。
+- 地址仍然是 `http://127.0.0.1:8000/mcp`。
+
+### 检查 Prompt 是否能被识别
+
+```bash
+uv run fastmcp inspect src/server.py
+```
+
+期望：
+
+- 能看到已有 Tools。
+- 能看到已有 Resource `project://summary`。
+- 能看到新增 Prompt `analyze_quote_request`。
+
+### 运行 Prompt Client Demo
+
+```bash
+uv run python src/client_prompt_demo.py
+```
+
+期望：
+
+- 能成功获取 `analyze_quote_request` Prompt。
+- 输出中能看到报价需求分析相关提示内容。
+- 输出中能看到示例 `requirement_text`。
+- 输出中能看到 `customer_region` 的信息。
