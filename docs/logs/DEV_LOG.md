@@ -147,3 +147,32 @@
   - Server 成功运行在 `http://127.0.0.1:8000/mcp`。
   - Client 成功输出 `{"success": true, "data": {"message": "Hello, FastMCP!"}}`。
   - 沙箱内直接访问 `127.0.0.1:8000` 受限；使用本机 loopback 权限运行 Client 后验证通过。
+
+### Step 3：Quote price calculator tool
+
+- 变更：
+  - 新增 `calculate_quote_price` 业务型 Tool。
+  - Client 增加对该 Tool 的调用示例。
+  - 新增 Step 3 学习笔记。
+
+- 文件：
+  - `src/server.py`
+  - `src/client.py`
+  - `docs/learning/003-quote-price-calculator-tool.md`
+  - `docs/learning/README.md`
+  - `docs/logs/DEV_LOG.md`
+
+- 验证：
+  - `uv run fastmcp inspect src/server.py`
+  - `uv run fastmcp list src/server.py`
+  - `uv run python src/server.py`
+  - `uv run python src/client.py`
+  - `uv run python -m py_compile src/client.py src/server.py`
+
+- 结果：
+  - 已通过。
+  - `inspect` 显示 Tools 数量为 2。
+  - `list` 显示 `hello` 和 `calculate_quote_price`。
+  - Server 成功运行在 `http://127.0.0.1:8000/mcp`。
+  - Client 成功输出 `Hello, FastMCP!`。
+  - Client 成功输出报价结果：`unit_price` 200、`subtotal` 600、`urgency_fee` 120、`total_price` 720、`currency` JPY。

@@ -25,6 +25,7 @@
 
 1. `001-fastmcp-server-and-hello-tool.md`：最小 FastMCP Server、`hello` Tool、HTTP 运行、CLI inspect / list。
 2. `002-mcp-client-calls-hello-tool.md`：MCP Client 通过 HTTP 调用 `hello` Tool，理解 Client / Server 调用闭环。
+3. `003-quote-price-calculator-tool.md`：业务型报价计算 Tool，输入校验、结构化返回和 Client 调用示例。
 
 ## 后续维护原则
 
