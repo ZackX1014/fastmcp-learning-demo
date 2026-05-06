@@ -90,3 +90,38 @@ uv run python src/client_error_demo.py
 - 三个错误场景都被执行。
 - 每个错误场景都能看到对应错误信息。
 - 程序不会在第一个错误后直接退出。
+
+## Step 5：验证 MCP Resource
+
+### 启动 Server
+
+```bash
+uv run python src/server.py
+```
+
+期望：
+
+- Server 正常启动。
+- 地址仍然是 `http://127.0.0.1:8000/mcp`。
+
+### 检查 Resource 是否能被识别
+
+```bash
+uv run fastmcp inspect src/server.py
+```
+
+期望：
+
+- 能看到已有 Tools。
+- 能看到新增 Resource `project://summary`。
+
+### 运行 Resource Client Demo
+
+```bash
+uv run python src/client_resource_demo.py
+```
+
+期望：
+
+- 能成功读取 `project://summary`。
+- 输出中能看到 `project_name`、`goal`、`completed_steps`、`current_focus` 等信息。

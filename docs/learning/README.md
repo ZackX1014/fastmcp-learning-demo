@@ -27,6 +27,7 @@
 2. `002-mcp-client-calls-hello-tool.md`：MCP Client 通过 HTTP 调用 `hello` Tool，理解 Client / Server 调用闭环。
 3. `003-quote-price-calculator-tool.md`：业务型报价计算 Tool，输入校验、结构化返回和 Client 调用示例。
 4. `004-tool-validation-and-error-handling.md`：验证 Tool 输入校验、错误调用 Demo 和业务错误边界。
+5. `005-mcp-resource-project-summary.md`：MCP Resource、只读项目摘要和 Client 读取 Resource。
 
 ## 后续维护原则
 

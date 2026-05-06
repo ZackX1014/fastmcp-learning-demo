@@ -205,3 +205,31 @@
   - `quantity = 0` 返回 `quantity must be greater than 0.`。
   - `product_type = ""` 返回 `product_type is required.`。
   - `urgency = "rush"` 返回 `urgency must be either 'normal' or 'urgent'.`。
+
+### Step 5：MCP Resource project summary
+
+- 变更：
+  - 新增 `project://summary` 只读 Resource。
+  - 新增 `client_resource_demo.py`，用于演示 Client 读取 Resource。
+  - 新增 Step 5 学习笔记。
+  - 更新测试指南和学习笔记索引。
+
+- 文件：
+  - `src/server.py`
+  - `src/client_resource_demo.py`
+  - `docs/guides/TESTING.md`
+  - `docs/learning/005-mcp-resource-project-summary.md`
+  - `docs/learning/README.md`
+  - `docs/logs/DEV_LOG.md`
+
+- 验证：
+  - `uv run fastmcp inspect src/server.py`
+  - `uv run python src/server.py`
+  - `uv run python src/client_resource_demo.py`
+
+- 结果：
+  - 已通过。
+  - `inspect` 显示 Tools 数量为 2、Resources 数量为 1。
+  - Server 成功运行在 `http://127.0.0.1:8000/mcp`。
+  - Resource Demo 成功读取 `project://summary`。
+  - 输出包含 `project_name`、`goal`、`completed_steps`、`current_focus`。

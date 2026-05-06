@@ -64,6 +64,29 @@ def calculate_quote_price(
     }
 
 
+@mcp.resource(
+    "project://summary",
+    name="project_summary",
+    description="Read a short summary of the FastMCP learning demo project.",
+    mime_type="application/json",
+)
+def get_project_summary() -> dict:
+    """Return a read-only summary of this learning project."""
+    return {
+        "project_name": "fastmcp-learning-demo",
+        "project_type": "FastMCP / MCP learning demo",
+        "goal": "learn FastMCP Server, Tool, Client, HTTP Transport, Resource, Prompt",
+        "completed_steps": [
+            "Step 1: FastMCP Server and hello tool",
+            "Step 2: MCP Client calls hello tool",
+            "Step 3: quote price calculator tool",
+            "Step 4: tool validation and error handling demo",
+        ],
+        "current_focus": "learning MCP Resource",
+        "note": "this project does not connect to the real QuoteAgent system",
+    }
+
+
 def main() -> None:
     """Run the FastMCP Server with HTTP transport."""
     mcp.run(transport="http", host="127.0.0.1", port=8000)
