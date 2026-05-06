@@ -28,13 +28,16 @@ def calculate_quote_price(
     urgency = urgency.strip().lower()
 
     if not product_type:
-        return {"success": False, "error": "product_type is required"}
+        return {"success": False, "error": "product_type is required."}
     if quantity <= 0:
-        return {"success": False, "error": "quantity must be greater than 0"}
+        return {"success": False, "error": "quantity must be greater than 0."}
     if not region:
-        return {"success": False, "error": "region is required"}
+        return {"success": False, "error": "region is required."}
     if urgency not in {"normal", "urgent"}:
-        return {"success": False, "error": "urgency must be normal or urgent"}
+        return {
+            "success": False,
+            "error": "urgency must be either 'normal' or 'urgent'.",
+        }
 
     unit_prices = {
         "standard": 100,

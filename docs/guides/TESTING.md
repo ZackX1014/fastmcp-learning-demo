@@ -53,3 +53,40 @@ uv run fastmcp list src/server.py
 - 验证方式。
 - 验证结果。
 - 是否建议提交 Git。
+
+## Step 4：验证 Tool 输入校验和错误调用
+
+### 启动 Server
+
+```bash
+uv run python src/server.py
+```
+
+期望：
+
+- Server 正常启动。
+- 地址仍然是 `http://127.0.0.1:8000/mcp`。
+
+### 运行正常 Client
+
+```bash
+uv run python src/client.py
+```
+
+期望：
+
+- `hello` Tool 正常。
+- `calculate_quote_price` Tool 正常。
+- 能看到 `total_price` 等结构化字段。
+
+### 运行错误调用 Demo
+
+```bash
+uv run python src/client_error_demo.py
+```
+
+期望：
+
+- 三个错误场景都被执行。
+- 每个错误场景都能看到对应错误信息。
+- 程序不会在第一个错误后直接退出。
