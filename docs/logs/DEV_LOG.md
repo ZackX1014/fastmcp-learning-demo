@@ -261,3 +261,31 @@
   - Server 成功运行在 `http://127.0.0.1:8000/mcp`。
   - Prompt Demo 成功获取 `analyze_quote_request`。
   - 输出包含示例 `requirement_text` 和 `customer_region` JP。
+
+### Step 7：组合 Tool + Resource + Prompt，模拟小型 Agent 工作流
+
+- 变更：
+  - 新增模拟 Agent 工作流 Client，串联 Resource、Prompt、Tool。
+  - 新增 Step 7 学习笔记。
+  - 更新测试指南和学习笔记索引。
+
+- 文件：
+  - `src/client_agent_workflow_demo.py`
+  - `docs/guides/TESTING.md`
+  - `docs/learning/007-tool-resource-prompt-workflow.md`
+  - `docs/learning/README.md`
+  - `docs/logs/DEV_LOG.md`
+
+- 验证：
+  - `uv run fastmcp inspect src/server.py`
+  - `uv run fastmcp list src/server.py`
+  - `uv run python src/server.py`
+  - `uv run python src/client_agent_workflow_demo.py`
+
+- 结果：
+  - 已通过。
+  - `inspect` 显示 Tools 数量为 2、Resources 数量为 1、Prompts 数量为 1。
+  - `list` 显示 `hello` 和 `calculate_quote_price`。
+  - Server 成功运行在 `http://127.0.0.1:8000/mcp`。
+  - Agent Workflow Demo 成功按 Resource → Prompt → Tool 顺序执行。
+  - 最终报价结果为 `total_price` 1800、`currency` JPY。

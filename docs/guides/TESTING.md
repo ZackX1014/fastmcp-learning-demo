@@ -163,3 +163,30 @@ uv run python src/client_prompt_demo.py
 - 输出中能看到报价需求分析相关提示内容。
 - 输出中能看到示例 `requirement_text`。
 - 输出中能看到 `customer_region` 的信息。
+
+## Step 7：验证模拟 Agent 工作流
+
+### 启动 Server
+
+```bash
+uv run python src/server.py
+```
+
+期望：
+
+- Server 正常启动。
+- 地址仍然是 `http://127.0.0.1:8000/mcp`。
+
+### 运行 Agent Workflow Demo
+
+```bash
+uv run python src/client_agent_workflow_demo.py
+```
+
+期望：
+
+- 能成功读取 `project://summary`。
+- 能成功获取 `analyze_quote_request` Prompt。
+- 能成功调用 `calculate_quote_price` Tool。
+- 输出中能看到 Resource → Prompt → Tool 的顺序。
+- 最终能看到报价计算结果。

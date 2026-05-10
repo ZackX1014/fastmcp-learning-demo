@@ -29,6 +29,7 @@
 4. `004-tool-validation-and-error-handling.md`：验证 Tool 输入校验、错误调用 Demo 和业务错误边界。
 5. `005-mcp-resource-project-summary.md`：MCP Resource、只读项目摘要和 Client 读取 Resource。
 6. `006-mcp-prompt-quote-analysis.md`：MCP Prompt、报价分析提示模板和 Client 获取 Prompt。
+7. `007-tool-resource-prompt-workflow.md`：组合 Resource、Prompt、Tool，模拟小型 Agent 工作流。
 
 ## 后续维护原则
 
