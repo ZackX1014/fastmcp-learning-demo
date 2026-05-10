@@ -289,3 +289,31 @@
   - Server 成功运行在 `http://127.0.0.1:8000/mcp`。
   - Agent Workflow Demo 成功按 Resource → Prompt → Tool 顺序执行。
   - 最终报价结果为 `total_price` 1800、`currency` JPY。
+
+### Step 8：QuoteAgent 风格完整模拟流程
+
+- 变更：
+  - 新增 QuoteAgent 风格模拟 Client，演示完整与不完整报价请求的处理流程。
+  - 新增 Step 8 学习笔记。
+  - 更新测试指南和学习笔记索引。
+
+- 文件：
+  - `src/client_quote_agent_simulation_demo.py`
+  - `docs/guides/TESTING.md`
+  - `docs/learning/008-quote-agent-simulation-workflow.md`
+  - `docs/learning/README.md`
+  - `docs/logs/DEV_LOG.md`
+
+- 验证：
+  - `uv run fastmcp inspect src/server.py`
+  - `uv run fastmcp list src/server.py`
+  - `uv run python src/server.py`
+  - `uv run python src/client_quote_agent_simulation_demo.py`
+
+- 结果：
+  - 已通过。
+  - `inspect` 显示 Tools 数量为 2、Resources 数量为 1、Prompts 数量为 1。
+  - `list` 显示 `hello` 和 `calculate_quote_price`。
+  - Server 成功运行在 `http://127.0.0.1:8000/mcp`。
+  - 完整请求 Case 成功调用 `calculate_quote_price`。
+  - 不完整请求 Case 未调用 Tool，并输出缺失字段 `quantity` 和 `urgency`。

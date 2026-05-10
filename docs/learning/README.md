@@ -30,6 +30,7 @@
 5. `005-mcp-resource-project-summary.md`：MCP Resource、只读项目摘要和 Client 读取 Resource。
 6. `006-mcp-prompt-quote-analysis.md`：MCP Prompt、报价分析提示模板和 Client 获取 Prompt。
 7. `007-tool-resource-prompt-workflow.md`：组合 Resource、Prompt、Tool，模拟小型 Agent 工作流。
+8. `008-quote-agent-simulation-workflow.md`：QuoteAgent 风格完整模拟流程，包含信息完整性判断和 Tool 调用决策。
 
 ## 后续维护原则
 

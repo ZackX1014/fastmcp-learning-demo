@@ -190,3 +190,30 @@ uv run python src/client_agent_workflow_demo.py
 - 能成功调用 `calculate_quote_price` Tool。
 - 输出中能看到 Resource → Prompt → Tool 的顺序。
 - 最终能看到报价计算结果。
+
+## Step 8：验证 QuoteAgent 风格模拟流程
+
+### 启动 Server
+
+```bash
+uv run python src/server.py
+```
+
+期望：
+
+- Server 正常启动。
+- 地址仍然是 `http://127.0.0.1:8000/mcp`。
+
+### 运行 QuoteAgent Simulation Demo
+
+```bash
+uv run python src/client_quote_agent_simulation_demo.py
+```
+
+期望：
+
+- 能看到 `Complete request case`。
+- 能看到 `Incomplete request case`。
+- 完整请求会读取 Resource、获取 Prompt、调用 `calculate_quote_price` Tool。
+- 不完整请求会读取 Resource、获取 Prompt，但不会调用 `calculate_quote_price` Tool。
+- 不完整请求会输出 `missing_fields`。
