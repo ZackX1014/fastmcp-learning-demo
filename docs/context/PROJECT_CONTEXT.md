@@ -2,11 +2,16 @@
 
 ## 项目目标
 
-`fastmcp-learning-demo` 是一个独立 FastMCP 学习项目，用于快速理解 MCP Server、Tool、Client 的基本闭环。
+`fastmcp-learning-demo` 是一个独立 FastMCP / MCP 学习项目，用于通过 Demo 快速理解 MCP Server、Tool、Client、Resource、Prompt 和 Workflow 的基本闭环。
 
 ## 当前阶段
 
-当前处于 Step 0：初始化 uv 环境、目录结构、文档驱动开发结构和学习记录文档。
+当前已完成 Step 0 到 Step 10。
+
+- Step 0：项目初始化。
+- Step 1-8：FastMCP / MCP 核心 Demo。
+- Step 9：CLI inspect / list / 测试与文档整理。
+- Step 10：项目总结与 README 优化。
 
 ## 学习范围
 
@@ -15,6 +20,9 @@
 - 使用 Client 调用 Tool。
 - 使用 HTTP 运行。
 - 使用 CLI inspect / list 检查。
+- 使用 Resource 提供上下文资料。
+- 使用 Prompt 提供可复用指令模板。
+- 组合 Tool、Resource、Prompt 模拟 Agent 工作流。
 - 完成 QuoteAgent 风格的本地模拟 Demo。
 
 ## 暂不包含范围
@@ -29,7 +37,7 @@
 
 ## 最终 Demo 目标
 
-输入报价邮件文本，解析商品和数量，根据本地假价格表计算报价，并返回结构化 JSON。
+输入报价请求文本，使用本地简单规则模拟信息完整性判断，根据本地假价格规则计算报价，并返回结构化结果。
 
 ## 与 QuoteAgent 的关系
 

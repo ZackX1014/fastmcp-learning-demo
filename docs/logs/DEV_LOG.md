@@ -374,3 +374,27 @@
   - Step 1 学习笔记为 288 行。
   - Step 2 学习笔记为 181 行。
   - 两份文档未发现冲突标记。
+
+### Step 10：项目总结与 README 优化
+
+- 变更：
+  - 优化 `README.md`，整理项目概览、学习目标、运行方式、MCP 概念对比和项目边界。
+  - 更新项目上下文文档，记录 Step 0 到 Step 10 已完成。
+
+- 文件：
+  - `README.md`
+  - `docs/context/PROJECT_CONTEXT.md`
+  - `docs/logs/DEV_LOG.md`
+
+- 验证：
+  - `uv run fastmcp version`
+  - `uv run fastmcp inspect src/server.py`
+  - `uv run fastmcp list src/server.py`
+  - `rg "^## " README.md`
+
+- 结果：
+  - 已通过。
+  - `fastmcp version` 输出 FastMCP 3.2.4、MCP 1.27.0、Python 3.12.13。
+  - `inspect` 显示 Tools 数量为 2、Resources 数量为 1、Prompts 数量为 1。
+  - `list` 显示 `hello` 和 `calculate_quote_price`。
+  - `README.md` 包含项目概览、学习目标、运行方式、MCP 概念对比、QuoteAgent 关系和项目边界。
