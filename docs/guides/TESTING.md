@@ -1,12 +1,29 @@
 # Testing
 
-## 验证 FastMCP 已安装
+## 用途
+
+本文件用于记录当前学习项目的手动验证命令。
+
+它不是生产测试规范。
+
+它的目标是让学习者能按顺序复现：
+
+- 环境是否可用。
+- Server 是否能启动。
+- CLI 是否能看到 MCP 能力。
+- 各个 Client Demo 是否能跑通。
+
+## 环境检查
 
 ```bash
 uv run fastmcp version
 ```
 
-如果能输出 FastMCP 版本号，说明依赖已安装且 uv 环境可用。
+用途：
+
+- 确认 FastMCP 已安装。
+- 确认当前命令运行在 uv 管理的 Python 环境中。
+- 查看 FastMCP、MCP、Python 和 Platform 信息。
 
 ## 启动 Server
 
@@ -14,206 +31,149 @@ uv run fastmcp version
 uv run python src/server.py
 ```
 
-当前阶段 `src/server.py` 只是占位文件，后续实现 Server 后再补充实际启动结果。
+预期：
 
-## 运行 Client
+- FastMCP Server 正常启动。
+- HTTP 地址为 `http://127.0.0.1:8000/mcp`。
 
-```bash
-uv run python src/client.py
-```
+运行 Client Demo 前，需要先保持 Server 运行。
 
-当前阶段 `src/client.py` 只是占位文件，后续实现 Client 后再补充实际调用结果。
+## CLI 检查
 
-## 使用 fastmcp inspect
+### inspect
 
 ```bash
 uv run fastmcp inspect src/server.py
 ```
 
-用于检查 Server 和 Tool 的元数据。当前阶段暂未实现 Server，后续实现后再使用。
+用途：
 
-## 使用 fastmcp list
+- 检查 Server 是否能被 FastMCP 正确加载。
+- 查看当前 Server 暴露了多少 Tool、Resource、Prompt。
+
+当前预期：
+
+- Tools 数量为 2。
+- Resources 数量为 1。
+- Prompts 数量为 1。
+
+### list
 
 ```bash
 uv run fastmcp list src/server.py
 ```
 
-用于列出 Server 暴露的 Tool。当前阶段暂未实现 Tool，后续实现后再使用。
+用途：
 
-## 每个 Tool 需要验证
+- 快速查看当前 Server 暴露的 Tool 列表。
 
-- 正常输入。
-- 空输入。
-- 非法输入。
-- 未识别商品。
+当前 FastMCP 3.2.4 中，`list` 主要显示 Tool。
 
-## 每次完成后需要说明
+当前预期能看到：
 
-- 修改内容。
-- 验证方式。
-- 验证结果。
-- 是否建议提交 Git。
+- `hello`
+- `calculate_quote_price`
 
-## Step 4：验证 Tool 输入校验和错误调用
+Resource 和 Prompt 建议通过 `inspect` 检查：
 
-### 启动 Server
+- Resource：`project://summary`
+- Prompt：`analyze_quote_request`
+
+## Client Demo 验证命令
+
+运行下面命令前，先启动 Server：
 
 ```bash
 uv run python src/server.py
 ```
 
-期望：
-
-- Server 正常启动。
-- 地址仍然是 `http://127.0.0.1:8000/mcp`。
-
-### 运行正常 Client
+### 正常 Tool 调用 Demo
 
 ```bash
 uv run python src/client.py
 ```
 
-期望：
+验证：
 
-- `hello` Tool 正常。
-- `calculate_quote_price` Tool 正常。
-- 能看到 `total_price` 等结构化字段。
+- `hello` Tool 可以被调用。
+- `calculate_quote_price` Tool 可以用正常参数返回结构化报价结果。
 
-### 运行错误调用 Demo
+### 错误调用 Demo
 
 ```bash
 uv run python src/client_error_demo.py
 ```
 
-期望：
+验证：
 
-- 三个错误场景都被执行。
-- 每个错误场景都能看到对应错误信息。
-- 程序不会在第一个错误后直接退出。
+- `quantity = 0` 会返回清晰错误。
+- `product_type` 为空会返回清晰错误。
+- `urgency = rush` 会返回清晰错误。
+- 程序不会在第一个错误场景后直接退出。
 
-## Step 5：验证 MCP Resource
-
-### 启动 Server
-
-```bash
-uv run python src/server.py
-```
-
-期望：
-
-- Server 正常启动。
-- 地址仍然是 `http://127.0.0.1:8000/mcp`。
-
-### 检查 Resource 是否能被识别
-
-```bash
-uv run fastmcp inspect src/server.py
-```
-
-期望：
-
-- 能看到已有 Tools。
-- 能看到新增 Resource `project://summary`。
-
-### 运行 Resource Client Demo
+### Resource 读取 Demo
 
 ```bash
 uv run python src/client_resource_demo.py
 ```
 
-期望：
+验证：
 
-- 能成功读取 `project://summary`。
-- 输出中能看到 `project_name`、`goal`、`completed_steps`、`current_focus` 等信息。
+- Client 可以读取 `project://summary`。
+- 输出中能看到项目摘要信息。
 
-## Step 6：验证 MCP Prompt
-
-### 启动 Server
-
-```bash
-uv run python src/server.py
-```
-
-期望：
-
-- Server 正常启动。
-- 地址仍然是 `http://127.0.0.1:8000/mcp`。
-
-### 检查 Prompt 是否能被识别
-
-```bash
-uv run fastmcp inspect src/server.py
-```
-
-期望：
-
-- 能看到已有 Tools。
-- 能看到已有 Resource `project://summary`。
-- 能看到新增 Prompt `analyze_quote_request`。
-
-### 运行 Prompt Client Demo
+### Prompt 获取 Demo
 
 ```bash
 uv run python src/client_prompt_demo.py
 ```
 
-期望：
+验证：
 
-- 能成功获取 `analyze_quote_request` Prompt。
-- 输出中能看到报价需求分析相关提示内容。
-- 输出中能看到示例 `requirement_text`。
-- 输出中能看到 `customer_region` 的信息。
+- Client 可以获取 `analyze_quote_request` Prompt。
+- 输出中能看到报价需求分析提示模板。
 
-## Step 7：验证模拟 Agent 工作流
-
-### 启动 Server
-
-```bash
-uv run python src/server.py
-```
-
-期望：
-
-- Server 正常启动。
-- 地址仍然是 `http://127.0.0.1:8000/mcp`。
-
-### 运行 Agent Workflow Demo
+### Tool + Resource + Prompt 工作流 Demo
 
 ```bash
 uv run python src/client_agent_workflow_demo.py
 ```
 
-期望：
+验证：
 
-- 能成功读取 `project://summary`。
-- 能成功获取 `analyze_quote_request` Prompt。
-- 能成功调用 `calculate_quote_price` Tool。
-- 输出中能看到 Resource → Prompt → Tool 的顺序。
-- 最终能看到报价计算结果。
+- Client 可以按 Resource → Prompt → Tool 的顺序串联 MCP 能力。
+- 输出中能看到最终模拟 Agent 工作流结果。
 
-## Step 8：验证 QuoteAgent 风格模拟流程
-
-### 启动 Server
-
-```bash
-uv run python src/server.py
-```
-
-期望：
-
-- Server 正常启动。
-- 地址仍然是 `http://127.0.0.1:8000/mcp`。
-
-### 运行 QuoteAgent Simulation Demo
+### QuoteAgent 风格模拟流程 Demo
 
 ```bash
 uv run python src/client_quote_agent_simulation_demo.py
 ```
 
-期望：
+验证：
 
-- 能看到 `Complete request case`。
-- 能看到 `Incomplete request case`。
-- 完整请求会读取 Resource、获取 Prompt、调用 `calculate_quote_price` Tool。
-- 不完整请求会读取 Resource、获取 Prompt，但不会调用 `calculate_quote_price` Tool。
-- 不完整请求会输出 `missing_fields`。
+- 完整报价请求会调用 `calculate_quote_price`。
+- 不完整报价请求不会调用 Tool。
+- 不完整报价请求会输出 `missing_fields`。
+
+## 当前 MCP 能力清单
+
+### Tools
+
+- `hello`
+- `calculate_quote_price`
+
+### Resource
+
+- `project://summary`
+
+### Prompt
+
+- `analyze_quote_request`
+
+## 每次完成后需要说明
+
+- 修改了什么。
+- 执行了哪些验证命令。
+- 验证结果是什么。
+- 是否建议提交 Git。

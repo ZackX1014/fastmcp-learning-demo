@@ -317,3 +317,60 @@
   - Server 成功运行在 `http://127.0.0.1:8000/mcp`。
   - 完整请求 Case 成功调用 `calculate_quote_price`。
   - 不完整请求 Case 未调用 Tool，并输出缺失字段 `quantity` 和 `urgency`。
+
+### Step 9：CLI inspect / list / 测试与文档整理
+
+- 变更：
+  - 整理 `TESTING.md`，补充环境检查、Server 启动、CLI 检查和各 Client Demo 验证命令。
+  - 检查学习笔记索引，确认 Step 1 到 Step 8 的学习笔记可追踪。
+  - 明确纯测试与文档整理步骤可以不新增学习笔记。
+
+- 文件：
+  - `docs/guides/TESTING.md`
+  - `docs/learning/README.md`
+  - `docs/logs/DEV_LOG.md`
+
+- 验证：
+  - `uv run fastmcp version`
+  - `uv run fastmcp inspect src/server.py`
+  - `uv run fastmcp list src/server.py`
+  - `uv run python src/server.py`
+  - `uv run python src/client.py`
+  - `uv run python src/client_error_demo.py`
+  - `uv run python src/client_resource_demo.py`
+  - `uv run python src/client_prompt_demo.py`
+  - `uv run python src/client_agent_workflow_demo.py`
+  - `uv run python src/client_quote_agent_simulation_demo.py`
+
+- 结果：
+  - 已通过。
+  - `fastmcp version` 输出 FastMCP 3.2.4、MCP 1.27.0、Python 3.12.13。
+  - `inspect` 显示 Tools 数量为 2、Resources 数量为 1、Prompts 数量为 1。
+  - `list` 显示 `hello` 和 `calculate_quote_price`。
+  - Server 成功运行在 `http://127.0.0.1:8000/mcp`。
+  - 六个 Client Demo 均可运行并展示对应学习目标。
+
+## 2026-05-10
+
+### 文档修复：恢复 Step 2 并折中调整 Step 1 学习笔记
+
+- 变更：
+  - 恢复 `002-mcp-client-calls-hello-tool.md`。
+  - 清理 `001-fastmcp-server-and-hello-tool.md` 中的冲突标记。
+  - 将 Step 1 学习笔记调整为折中长度，保留基础概念解释和验证命令。
+
+- 文件：
+  - `docs/learning/001-fastmcp-server-and-hello-tool.md`
+  - `docs/learning/002-mcp-client-calls-hello-tool.md`
+  - `docs/logs/DEV_LOG.md`
+
+- 验证：
+  - `wc -l docs/learning/001-fastmcp-server-and-hello-tool.md docs/learning/002-mcp-client-calls-hello-tool.md`
+  - `rg "<<<<<<<|=======|>>>>>>>" docs/learning/001-fastmcp-server-and-hello-tool.md docs/learning/002-mcp-client-calls-hello-tool.md`
+  - `rg "^#|^## |^### " docs/learning/001-fastmcp-server-and-hello-tool.md docs/learning/002-mcp-client-calls-hello-tool.md`
+
+- 结果：
+  - 已通过。
+  - Step 1 学习笔记为 288 行。
+  - Step 2 学习笔记为 181 行。
+  - 两份文档未发现冲突标记。
